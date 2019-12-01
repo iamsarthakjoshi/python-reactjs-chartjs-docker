@@ -8,7 +8,6 @@ from .models import Data
 
 app = create_app()
 
-
 @app.route('/data', methods=['GET'])
 def fetch():
     dataArr = Data.getAll()
