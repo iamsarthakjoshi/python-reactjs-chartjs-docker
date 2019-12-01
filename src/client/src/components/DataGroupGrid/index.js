@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-bootstrap'
+import { Container, Row, Col, Alert } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { groupBy, map } from 'lodash'
 
@@ -22,14 +22,22 @@ class DataGroupGrid extends Component {
 
     const dataGroups = groupBy(dataGroupList.successData, 'group')
     const renderCharts = map(dataGroups, (dataGroup, idx) => {
-      return <BarChart key={idx} dataGroup={dataGroup} />
+      return (
+        <Col lg={4}>
+          <BarChart key={idx} dataGroup={dataGroup} />
+        </Col>
+      )
     })
 
     return !dataGroupList.loading ? (
       <div className="App">
-        {renderError}
-        <h3>Data Group</h3>
-        {renderCharts}
+        <Container>
+          <Row>
+            {renderError}
+            <h3>Data Group</h3>
+          </Row>
+          <Row>{renderCharts}</Row>
+        </Container>
       </div>
     ) : (
       <p>Loading..</p>
