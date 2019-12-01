@@ -20,7 +20,7 @@ def upgrade():
   op.create_table(
     'data',
     sa.Column('id', sa.Integer, primary_key=True),
-    sa.Column('date', sa.String(255)),
+    sa.Column('date', sa.Date()),
     sa.Column('amount', sa.Integer),
     sa.Column('group', sa.Integer)
   )

@@ -1,6 +1,6 @@
 import json
-
 from flask import request
+from datetime import datetime
 
 from . import create_app, database
 from .models import Data
@@ -15,7 +15,7 @@ def fetch():
     for data in dataArr:
         new_data = {
             "id": data.id,
-            "date": data.date,
+            "date": data.date.strftime("%m/%d/%Y"),
             "amount": data.amount,
             "group": data.group,
         }
