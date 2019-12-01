@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Alert } from 'react-bootstrap'
+import { Row, Col, Alert } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { groupBy, map } from 'lodash'
 
@@ -13,40 +13,36 @@ class DataGroupGrid extends Component {
 
   render() {
     const {
-      data: { dataGroupList }
+      dataGroupList: { loading, successData, error, errorData }
     } = this.props
 
-    const renderError = dataGroupList.error && (
-      <Alert variant="danger">{dataGroupList.errorData}</Alert>
-    )
+    const renderError = error && <Alert variant="danger">{errorData}</Alert>
 
-    const dataGroups = groupBy(dataGroupList.successData, 'group')
+    const dataGroups = groupBy(successData, 'group')
     const renderCharts = map(dataGroups, (dataGroup, idx) => {
       return (
-        <Col lg={4}>
-          <BarChart key={idx} dataGroup={dataGroup} />
+        <Col lg={4} key={idx}>
+          <BarChart dataGroup={dataGroup} />
         </Col>
       )
     })
 
-    return !dataGroupList.loading ? (
-      <div className="App">
-        <Container>
-          <Row>
-            {renderError}
-            <h3>Data Group</h3>
-          </Row>
-          <Row>{renderCharts}</Row>
-        </Container>
-      </div>
+    return !loading ? (
+      <>
+        <Row>
+          {renderError}
+          <h3>Data Group</h3>
+        </Row>
+        <Row>{renderCharts}</Row>
+      </>
     ) : (
       <p>Loading..</p>
     )
   }
 }
 
-function mapStateToProps({ data }) {
-  return { data }
+function mapStateToProps({ data: { dataGroupList } }) {
+  return { dataGroupList }
 }
 
 export default connect(mapStateToProps, { fetchDataGroup })(DataGroupGrid)

@@ -26,10 +26,10 @@ def fetch():
 @app.route('/data', methods=['POST'])
 def add():
     Data.addDataGroup()
-    return json.dumps("Data Added Successfully"), 200
+    return fetch()
 
 
 @app.route('/data', methods=['DELETE'])
 def remove():
     Data.deleteLatestGroup()
-    return json.dumps("Data Deleted Successfully"), 200
+    return fetch()

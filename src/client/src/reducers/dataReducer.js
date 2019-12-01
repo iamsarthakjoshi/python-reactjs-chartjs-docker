@@ -1,7 +1,11 @@
 import {
   FETCH_DATA_GROUP_REQUEST,
   FETCH_DATA_GROUP_SUCCESS,
-  FETCH_DATA_GROUP_FAILED
+  FETCH_DATA_GROUP_FAILED,
+  ADD_DATA_GROUP_SUCCESS,
+  ADD_DATA_GROUP_FAILED,
+  DELETE_DATA_GROUP_SUCCESS,
+  DELETE_DATA_GROUP_FAILED
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -23,6 +27,8 @@ export default function(state = INITIAL_STATE, action) {
         })
       })
     case FETCH_DATA_GROUP_SUCCESS:
+    case ADD_DATA_GROUP_SUCCESS:
+    case DELETE_DATA_GROUP_SUCCESS:
       return Object.assign({}, state, {
         dataGroupList: Object.assign({}, state.dataGroupList, {
           loading: false,
@@ -31,6 +37,8 @@ export default function(state = INITIAL_STATE, action) {
         })
       })
     case FETCH_DATA_GROUP_FAILED:
+    case ADD_DATA_GROUP_FAILED:
+    case DELETE_DATA_GROUP_FAILED:
       return Object.assign({}, state, {
         dataGroupList: Object.assign({}, state.dataGroupList, {
           loading: false,
