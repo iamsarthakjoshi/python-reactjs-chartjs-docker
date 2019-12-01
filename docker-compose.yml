@@ -1,0 +1,8 @@
+version: '3.5'
+services:
+  database:
+    container_name: database
+    image: mysql
+    env_file: database.conf
+    ports:
+      - 3312:3306
