@@ -1,5 +1,31 @@
-version: '3.5'
+version: '3.7'
 services:
+  # server:
+  #   container_name: server
+  #   build:
+  #     context: ./src/server
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - './src/server:/app'
+  #   ports:
+  #     - '5001:5000'
+  #   environment:
+  #     - FLASK_ENV=development
+  #     - FLASK_APP=app.py
+  #   depends_on:
+  #     - database
+  client:
+    container_name: client
+    build:
+      context: ./src/client
+      dockerfile: Dockerfile
+    volumes:
+      - './src/client:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
   database:
     container_name: database
     image: mysql
