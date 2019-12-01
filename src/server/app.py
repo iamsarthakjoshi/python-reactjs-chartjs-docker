@@ -1,8 +1,9 @@
 import json
+import datetime
+import random
 from flask import request
-from datetime import datetime
 
-from . import create_app, database
+from . import create_app
 from .models import Data
 
 app = create_app()
@@ -10,7 +11,7 @@ app = create_app()
 
 @app.route('/data', methods=['GET'])
 def fetch():
-    dataArr = database.get_all(Data)
+    dataArr = Data.getAll()
     all_data = []
     for data in dataArr:
         new_data = {
@@ -25,17 +26,11 @@ def fetch():
 
 @app.route('/data', methods=['POST'])
 def add():
-    data = request.get_json()
-
-    date = data['date']
-    amount = data['amount']
-    group = data['group']
-
-    database.add_instance(Data, date=date, amount=amount, group=group)
+    Data.addDataGroup()
     return json.dumps("Data Added Successfully"), 200
 
 
-@app.route('/data/<data_id>', methods=['DELETE'])
-def remove(data_id):
-    database.delete_instance(Data, id=data_id)
+@app.route('/data', methods=['DELETE'])
+def remove():
+    Data.deleteLatestGroup()
     return json.dumps("Data Deleted Successfully"), 200
