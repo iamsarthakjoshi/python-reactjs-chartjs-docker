@@ -1,3 +1,19 @@
+## Notes from sarthak
+
+To run the app and services:
+
+```
+docker-compose up
+```
+
+If you face permission issue for **docker-entrypoint.sh** and **wait-for-it.sh** (located at /src/server/)
+then please privoide access to those files from `/src/server` location:
+
+```
+chmod +x docker-entrypoint.sh
+chmod +x wait-for-it.sh
+```
+
 # CoreAi full stack developer assessment task
 
 The task is to create a frontend that shows a graph.
@@ -14,7 +30,7 @@ Have a ChartJS graph that takes up 1/3 the screen width and under half the scree
 The initial set of data comes from the backend, the data can be just simply 5 random dollar values associated with dates starting from Oct 10
 
 For example
-$1,000 Oct 10, $2,000 Oct 11 $3,000 Oct 12 $2,500 Oct 13, $4,000 Oct 14
+$1,000 Oct 10, $2,000 Oct 11 $3,000 Oct 12 $2,500 Oct 13, \$4,000 Oct 14
 
 There are also two buttons called create and delete.
 

@@ -1,19 +1,27 @@
 version: '3.7'
 services:
-  # server:
-  #   container_name: server
-  #   build:
-  #     context: ./src/server
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - './src/server:/app'
-  #   ports:
-  #     - '5001:5000'
-  #   environment:
-  #     - FLASK_ENV=development
-  #     - FLASK_APP=app.py
-  #   depends_on:
-  #     - database
+  server:
+    container_name: server
+    build:
+      context: ./src/server
+      dockerfile: Dockerfile
+    volumes:
+      - './src/server:/app'
+    ports:
+      - '5000:5000'
+    command:
+      [
+        './wait-for-it.sh',
+        'database:3306',
+        '--',
+        'sh',
+        './docker-entrypoint.sh',
+      ]
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - database
+
   client:
     container_name: client
     build:
@@ -26,9 +34,18 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=development
+    depends_on:
+      - server
+
   database:
     container_name: database
-    image: mysql
-    env_file: database.conf
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'chart'
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - 3312:3306
+    expose:
+      - '3306'
+    # cap_add:
+    #   - SYS_NICE
