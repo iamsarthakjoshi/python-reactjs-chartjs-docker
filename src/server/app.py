@@ -18,6 +18,7 @@ def fetch():
             "date": data.date.strftime("%m/%d/%Y"),
             "amount": data.amount,
             "group": data.group,
+            "chart_type": data.chart_type,
         }
         all_data.append(new_data)
     return json.dumps(all_data), 200
@@ -25,7 +26,9 @@ def fetch():
 
 @app.route('/data', methods=['POST'])
 def add():
-    Data.addDataGroup()
+    data = request.get_json()
+    chart_type = data['chart_type']
+    Data.addDataGroup(chart_type)
     return fetch()
 
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { groupBy, map } from 'lodash'
 
 import { fetchDataGroup } from '../../actions'
-import BarChart from '../BarChart'
+import Chart from '../Chart'
 
 class DataGroupGrid extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class DataGroupGrid extends Component {
     const renderCharts = map(dataGroups, (dataGroup, idx) => {
       return (
         <Col lg={4} key={idx}>
-          <BarChart dataGroup={dataGroup} />
+          <Chart dataGroup={dataGroup} />
         </Col>
       )
     })

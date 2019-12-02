@@ -25,11 +25,11 @@ export const fetchDataGroup = () => {
   }
 }
 
-export const createDataGroup = () => {
+export const createDataGroup = (chart_type) => {
   return function(dispatch) {
     dispatch({ type: ADD_DATA_GROUP_REQUEST })
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/data`)
+      .post(`${process.env.REACT_APP_SERVER_URL}/data`, { chart_type })
       .then((res) => {
         return dispatch({ type: ADD_DATA_GROUP_SUCCESS, payload: res })
       })

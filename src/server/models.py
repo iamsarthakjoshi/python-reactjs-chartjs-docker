@@ -11,6 +11,7 @@ class Data(db.Model):
     date = db.Column(db.Date)
     amount = db.Column(db.Integer)
     group = db.Column(db.Integer)
+    chart_type = db.Column(db.String(5))
 
     @classmethod
 
@@ -23,22 +24,24 @@ class Data(db.Model):
                 "date": data.date,
                 "amount": data.amount,
                 "group": data.group,
+                "chart_type": data.chart_type,
             }
             all_data.append(new_data)
 
         if len(all_data) == 0:
-            Data.addDataGroup()
+            Data.addDataGroup("bar")
 
     def getAll():
         return Data.query.all()
 
-    def addDataGroup():
+    def addDataGroup(chart_type):
         group = Data.getLatestGroup() + 1
         for x in range(10, 15):
             data = Data(
                 date = datetime.date(2019, 10, x),
                 amount = random.randint(1000, 4000),
-                group = group
+                group = group,
+                chart_type = chart_type
             )
             db.session.add(data)
             db.session.commit()

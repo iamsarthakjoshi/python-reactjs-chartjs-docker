@@ -22,7 +22,8 @@ def upgrade():
     sa.Column('id', sa.Integer, primary_key=True),
     sa.Column('date', sa.Date()),
     sa.Column('amount', sa.Integer),
-    sa.Column('group', sa.Integer)
+    sa.Column('group', sa.Integer),
+    sa.Column('chart_type', sa.String(5))
   )
 
 
