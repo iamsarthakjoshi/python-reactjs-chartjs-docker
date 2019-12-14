@@ -1,5 +1,11 @@
 ## Notes from sarthak
 
+Pre steps:
+- Create a Datebase named __chart__ (you can rename your db)
+- Update mysql credentials in ./src/server/config.py (for db username, db password, db_name, host and port)
+- Update __MYSQL_DATABASE: 'chart'__ and __MYSQL_ROOT_PASSWORD: 'root'__ under __database__ service inside ./docker-compose.yml
+  - Please put your own __MYSQL_ROOT_PASSWORD__ if it's not 'root'
+
 To run the app and services:
 
 ```
